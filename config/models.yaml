@@ -1,0 +1,42 @@
+# LLM Agent 编程能力评测 - 模型配置
+# 所有模型通过百炼 API 调用
+
+models:
+  qwen3.5-plus:
+    endpoint: "coding.dashscope.aliyuncs.com"
+    model: "qwen3.5-plus"
+    api_key_env: "BAILIAN_API_KEY"
+    description: "通义千问 3.5 Plus"
+
+  glm-5:
+    endpoint: "coding.dashscope.aliyuncs.com"
+    model: "glm-5"
+    api_key_env: "BAILIAN_API_KEY"
+    description: "智谱 GLM-5"
+
+  minimax-m2.5:
+    endpoint: "coding.dashscope.aliyuncs.com"
+    model: "MiniMax-M2.5"
+    api_key_env: "BAILIAN_API_KEY"
+    description: "MiniMax M2.5"
+
+defaults:
+  temperature: 0.1
+  max_tokens: 4096
+  timeout: 120
+
+# 评测参数
+evaluation:
+  human_eval_samples: 50
+  mbpp_samples: 50
+  swe_bench_samples: 30
+  parallel_workers: 1
+  retry_count: 2
+
+# 评分权重
+weights:
+  accuracy: 0.50
+  speed: 0.20
+  efficiency: 0.15
+  quality: 0.10
+  tools: 0.05

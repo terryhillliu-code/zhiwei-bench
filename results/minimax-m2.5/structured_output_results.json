@@ -1,0 +1,421 @@
+[
+  {
+    "task_id": "json_simple",
+    "category": "json_format",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3634.9010467529297,
+    "input_tokens": 61,
+    "output_tokens": 79,
+    "total_tokens": 140,
+    "output": "```json\n{\n  \"name\": \"张三\",\n  \"age\": 25,\n  \"email\": \"zhangsan@example.com\"\n}\n```",
+    "parsed_result": {
+      "name": "张三",
+      "age": 25,
+      "email": "zhangsan@example.com"
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:01.518954"
+  },
+  {
+    "task_id": "json_nested",
+    "category": "json_format",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3640.4268741607666,
+    "input_tokens": 60,
+    "output_tokens": 98,
+    "total_tokens": 158,
+    "output": "```json\n{\n  \"name\": \"张三\",\n  \"address\": {\n    \"city\": \"北京\",\n    \"street\": \"朝阳区建国路88号\",\n    \"zipcode\": \"100022\"\n  }\n}\n```",
+    "parsed_result": {
+      "name": "张三",
+      "address": {
+        "city": "北京",
+        "street": "朝阳区建国路88号",
+        "zipcode": "100022"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:05.183624"
+  },
+  {
+    "task_id": "json_array",
+    "category": "json_format",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4176.70202255249,
+    "input_tokens": 59,
+    "output_tokens": 78,
+    "total_tokens": 137,
+    "output": "[{\"id\": 1, \"name\": \"张三\"}, {\"id\": 2, \"name\": \"李四\"}, {\"id\": 3, \"name\": \"王五\"}]",
+    "parsed_result": [
+      {
+        "id": 1,
+        "name": "张三"
+      },
+      {
+        "id": 2,
+        "name": "李四"
+      },
+      {
+        "id": 3,
+        "name": "王五"
+      }
+    ],
+    "error": null,
+    "timestamp": "2026-03-18T15:18:09.386201"
+  },
+  {
+    "task_id": "json_special_chars",
+    "category": "json_format",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3696.823835372925,
+    "input_tokens": 60,
+    "output_tokens": 171,
+    "total_tokens": 231,
+    "output": "{\"message\": \"He said \\\"Hello\\\" and left\\nNew line here.\"}",
+    "parsed_result": {
+      "message": "He said \"Hello\" and left\nNew line here."
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:13.103986"
+  },
+  {
+    "task_id": "json_numbers",
+    "category": "json_format",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3381.6449642181396,
+    "input_tokens": 65,
+    "output_tokens": 99,
+    "total_tokens": 164,
+    "output": "```json\n{\n  \"integer\": 42,\n  \"float\": 3.14159,\n  \"negative\": -17,\n  \"scientific\": 2.5e-10\n}\n```",
+    "parsed_result": {
+      "integer": 42,
+      "float": 3.14159,
+      "negative": -17,
+      "scientific": 2.5e-10
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:16.508899"
+  },
+  {
+    "task_id": "schema_required",
+    "category": "schema_adherence",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2905.857801437378,
+    "input_tokens": 122,
+    "output_tokens": 75,
+    "total_tokens": 197,
+    "output": "```json\n{\n  \"id\": 1,\n  \"name\": \"example\"\n}\n```",
+    "parsed_result": {
+      "id": 1,
+      "name": "example"
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:19.436442"
+  },
+  {
+    "task_id": "schema_types",
+    "category": "schema_adherence",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3548.4707355499268,
+    "input_tokens": 164,
+    "output_tokens": 118,
+    "total_tokens": 282,
+    "output": "```json\n{\n  \"string_field\": \"Hello World\",\n  \"number_field\": 42,\n  \"boolean_field\": true,\n  \"array_field\": [\"apple\", \"banana\", \"orange\"]\n}\n```",
+    "parsed_result": {
+      "string_field": "Hello World",
+      "number_field": 42,
+      "boolean_field": true,
+      "array_field": [
+        "apple",
+        "banana",
+        "orange"
+      ]
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:23.019700"
+  },
+  {
+    "task_id": "schema_enum",
+    "category": "schema_adherence",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3658.616065979004,
+    "input_tokens": 153,
+    "output_tokens": 142,
+    "total_tokens": 295,
+    "output": "```json\n{\n  \"status\": \"active\",\n  \"priority\": 3\n}\n```",
+    "parsed_result": {
+      "status": "active",
+      "priority": 3
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:26.708452"
+  },
+  {
+    "task_id": "schema_nested",
+    "category": "schema_adherence",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 7069.6120262146,
+    "input_tokens": 202,
+    "output_tokens": 303,
+    "total_tokens": 505,
+    "output": "{\n  \"user\": {\n    \"name\": \"张三\",\n    \"contacts\": [\n      {\n        \"type\": \"email\",\n        \"value\": \"zhangsan@example.com\"\n      },\n      {\n        \"type\": \"phone\",\n        \"value\": \"13800138000\"\n      }\n    ]\n  }\n}",
+    "parsed_result": {
+      "user": {
+        "name": "张三",
+        "contacts": [
+          {
+            "type": "email",
+            "value": "zhangsan@example.com"
+          },
+          {
+            "type": "phone",
+            "value": "13800138000"
+          }
+        ]
+      }
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:33.794881"
+  },
+  {
+    "task_id": "schema_array_constraints",
+    "category": "schema_adherence",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 7225.288867950439,
+    "input_tokens": 158,
+    "output_tokens": 162,
+    "total_tokens": 320,
+    "output": "```json\n{\n  \"tags\": [\"apple\", \"banana\", \"orange\"],\n  \"scores\": [85, 90, 78, 92]\n}\n```",
+    "parsed_result": {
+      "tags": [
+        "apple",
+        "banana",
+        "orange"
+      ],
+      "scores": [
+        85,
+        90,
+        78,
+        92
+      ]
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:41.045067"
+  },
+  {
+    "task_id": "func_simple",
+    "category": "function_calling",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3079.4119834899902,
+    "input_tokens": 177,
+    "output_tokens": 71,
+    "total_tokens": 248,
+    "output": "{\"function\": \"get_weather\", \"arguments\": {\"city\": \"北京\", \"unit\": \"celsius\"}}",
+    "parsed_result": {
+      "function": "get_weather",
+      "arguments": {
+        "city": "北京",
+        "unit": "celsius"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:44.149879"
+  },
+  {
+    "task_id": "func_multiple_params",
+    "category": "function_calling",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3609.253168106079,
+    "input_tokens": 251,
+    "output_tokens": 101,
+    "total_tokens": 352,
+    "output": "{\"function\": \"search_products\", \"arguments\": {\"keyword\": \"手机配件\", \"min_price\": 100, \"max_price\": 500, \"sort_by\": \"sales\"}}",
+    "parsed_result": {
+      "function": "search_products",
+      "arguments": {
+        "keyword": "手机配件",
+        "min_price": 100,
+        "max_price": 500,
+        "sort_by": "sales"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:47.782209"
+  },
+  {
+    "task_id": "func_nested_params",
+    "category": "function_calling",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 5853.44386100769,
+    "input_tokens": 296,
+    "output_tokens": 257,
+    "total_tokens": 553,
+    "output": "{\"function\": \"create_order\", \"arguments\": {\"customer\": {\"name\": \"张三\", \"phone\": \"13800138000\", \"address\": \"北京市朝阳区xxx\"}, \"items\": [{\"product_id\": \"A\", \"quantity\": 2}, {\"product_id\": \"B\", \"quantity\": 1}]}}",
+    "parsed_result": {
+      "function": "create_order",
+      "arguments": {
+        "customer": {
+          "name": "张三",
+          "phone": "13800138000",
+          "address": "北京市朝阳区xxx"
+        },
+        "items": [
+          {
+            "product_id": "A",
+            "quantity": 2
+          },
+          {
+            "product_id": "B",
+            "quantity": 1
+          }
+        ]
+      }
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:53.657968"
+  },
+  {
+    "task_id": "func_array_param",
+    "category": "function_calling",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2230.009078979492,
+    "input_tokens": 227,
+    "output_tokens": 89,
+    "total_tokens": 316,
+    "output": "{\"function\": \"send_notification\", \"arguments\": {\"recipients\": [\"张三\", \"李四\", \"王五\"], \"message\": \"明天开会\", \"priority\": \"high\"}}",
+    "parsed_result": {
+      "function": "send_notification",
+      "arguments": {
+        "recipients": [
+          "张三",
+          "李四",
+          "王五"
+        ],
+        "message": "明天开会",
+        "priority": "high"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:55.911855"
+  },
+  {
+    "task_id": "func_no_params",
+    "category": "function_calling",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2079.636812210083,
+    "input_tokens": 102,
+    "output_tokens": 37,
+    "total_tokens": 139,
+    "output": "{\"function\": \"get_current_time\", \"arguments\": {}}",
+    "parsed_result": {
+      "function": "get_current_time",
+      "arguments": {}
+    },
+    "error": null,
+    "timestamp": "2026-03-18T15:18:58.010083"
+  },
+  {
+    "task_id": "markdown_table",
+    "category": "format_control",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4941.627979278564,
+    "input_tokens": 54,
+    "output_tokens": 179,
+    "total_tokens": 233,
+    "output": "| 编程语言 | 创建年份 | 主要用途 |\n|---------|---------|---------|\n| Python | 1991 | 数据分析、机器学习、Web 开发、自动化脚本 |\n| JavaScript | 1995 | Web 前端开发、后端开发、桌面应用、移动应用 |\n| Java | 1995 | 企业级应用、Android 开发、大数据处理 |",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-03-18T15:19:02.975083"
+  },
+  {
+    "task_id": "markdown_code_block",
+    "category": "format_control",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3742.7241802215576,
+    "input_tokens": 50,
+    "output_tokens": 150,
+    "total_tokens": 200,
+    "output": "```python\ndef fibonacci(n):\n    \"\"\"计算斐波那契数列的第 n 项\"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n\n\n# 示例用法\nif __name__ == \"__main__\":\n    for i in range(10):\n        print(f\"F({i}) = {fibonacci(i)}\")\n```",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-03-18T15:19:06.739794"
+  },
+  {
+    "task_id": "markdown_list",
+    "category": "format_control",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 5736.899852752686,
+    "input_tokens": 48,
+    "output_tokens": 101,
+    "total_tokens": 149,
+    "output": "- 编写清晰、可读的代码，使用有意义的变量和函数命名\n- 保持代码简洁，遵循 DRY（Don't Repeat Yourself）原则，避免重复代码\n- 添加适当的注释和文档，说明代码的意图和用法\n- 使用版本控制系统（如 Git）管理代码变更\n- 进行代码审查和测试，确保代码质量和可靠性",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-03-18T15:19:12.496645"
+  },
+  {
+    "task_id": "markdown_heading",
+    "category": "format_control",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 10457.26728439331,
+    "input_tokens": 52,
+    "output_tokens": 450,
+    "total_tokens": 502,
+    "output": "# 人工智能：改变未来的力量\n\n## 一、什么是人工智能\n\n### 1.1 定义与概念\n\n人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，致力于开发能够模拟、延伸和扩展人类智能的理论、方法和技术。它涉及机器学习、自然语言处理、计算机视觉等多个领域。\n\n### 1.2 核心目标\n\nAI的核心目标是让机器具备感知、推理、学习和决策等能力，从而完成过去需要人类智慧才能完成的任务。\n\n## 二、AI的发展历程\n\n### 2.1 起步阶段（1950-1980）\n\n1956年，达特茅斯会议标志着人工智能作为独立学科的诞生。这一时期主要集中于逻辑推理和专家系统的研究。\n\n### 2.2 繁荣与低谷（1980-2000）\n\n专家系统的兴起推动了AI的第一次商业化应用，但随后因技术限制进入低谷期。\n\n### 2.3 深度学习时代（2010至今）\n\n随着大数据和算力的提升，深度学习技术突破使AI进入快速发展期，语音识别、图像识别等领域取得重大进展。\n\n## 三、AI的应用领域\n\n### 3.1 医疗健康\n\nAI辅助诊断、药物研发、基因分析等应用正在重塑医疗行业。",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-03-18T15:19:22.974738"
+  },
+  {
+    "task_id": "mixed_format",
+    "category": "format_control",
+    "model": "minimax-m2.5",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4421.089887619019,
+    "input_tokens": 63,
+    "output_tokens": 92,
+    "total_tokens": 155,
+    "output": "## 示例标题\n\n| 姓名 | 年龄 |\n|------|------|\n| 张三 | 25   |\n| 李四 | 30   |\n\n```python\ndef hello():\n    print(\"Hello, World!\")\n```",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-03-18T15:19:27.428423"
+  }
+]
