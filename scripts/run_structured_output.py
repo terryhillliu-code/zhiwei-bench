@@ -37,6 +37,10 @@ except ImportError:
     sys.exit(1)
 
 
+# 结构化输出评测的系统提示词
+STRUCTURED_OUTPUT_SYSTEM_PROMPT = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+
+
 @dataclass
 class StructuredOutputResult:
     """结构化输出评测结果"""
@@ -455,7 +459,7 @@ class StructuredOutputEvaluator:
 
         for test in tqdm(JSON_FORMAT_TESTS, desc=f"JSON格式评测-{model}"):
             try:
-                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                system_prompt = STRUCTURED_OUTPUT_SYSTEM_PROMPT
                 response, meta = self.api_client.call(model, test["prompt"],
                                                        system_prompt=system_prompt)
                 parsed, error = self.extract_json(response)
@@ -510,7 +514,7 @@ class StructuredOutputEvaluator:
         for test in tqdm(SCHEMA_ADHERENCE_TESTS, desc=f"Schema评测-{model}"):
             try:
                 prompt = test["prompt"].format(schema=json.dumps(test["schema"], indent=2, ensure_ascii=False))
-                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                system_prompt = STRUCTURED_OUTPUT_SYSTEM_PROMPT
                 response, meta = self.api_client.call(model, prompt, max_tokens=4096,
                                                        system_prompt=system_prompt)
                 parsed, error = self.extract_json(response)
@@ -578,7 +582,7 @@ class StructuredOutputEvaluator:
 输出格式：
 {{"function": "函数名", "arguments": {{参数对象}}}}"""
 
-                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                system_prompt = STRUCTURED_OUTPUT_SYSTEM_PROMPT
                 response, meta = self.api_client.call(model, prompt,
                                                        system_prompt=system_prompt)
                 parsed, error = self.extract_json(response)
@@ -648,7 +652,7 @@ class StructuredOutputEvaluator:
 
         for test in tqdm(FORMAT_CONTROL_TESTS, desc=f"格式控制评测-{model}"):
             try:
-                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                system_prompt = STRUCTURED_OUTPUT_SYSTEM_PROMPT
                 response, meta = self.api_client.call(model, test["prompt"],
                                                        system_prompt=system_prompt)
 

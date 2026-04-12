@@ -50,6 +50,9 @@ class APIClient:
             else:
                 self.config = {"models": {}}
 
+        # 缓存 SSL context 避免重复创建
+        self._ssl_context = ssl.create_default_context()
+
     def _load_config(self, config_path: str) -> dict:
         """加载配置文件"""
         if yaml is None:
@@ -57,7 +60,7 @@ class APIClient:
             try:
                 with open(config_path) as f:
                     return json.load(f)
-            except:
+            except Exception:
                 return {"models": {}}
 
         with open(config_path) as f:
@@ -226,7 +229,6 @@ class APIClient:
         Returns:
             (content, metadata)
         """
-        context = ssl.create_default_context()
         req = urllib.request.Request(
             url,
             data=json.dumps(payload).encode('utf-8'),
@@ -235,7 +237,7 @@ class APIClient:
         )
 
         start_time = time.time()
-        with urllib.request.urlopen(req, timeout=180, context=context) as resp:
+        with urllib.request.urlopen(req, timeout=180, context=self._ssl_context) as resp:
             data = json.loads(resp.read().decode())
         elapsed_ms = (time.time() - start_time) * 1000
 
