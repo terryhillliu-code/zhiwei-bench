@@ -21,8 +21,6 @@ import sys
 import json
 import time
 import argparse
-import ssl
-import urllib.request
 import re
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Any
@@ -33,6 +31,7 @@ import random
 try:
     import yaml
     from tqdm import tqdm
+    from api_client import APIClient
 except ImportError:
     print("请安装依赖: pip install pyyaml tqdm")
     sys.exit(1)
@@ -352,99 +351,12 @@ class StructuredOutputEvaluator:
     def __init__(self, config_path: str, model: str = None):
         self.config = self._load_config(config_path)
         self.current_model = model
+        self.api_client = APIClient(config_path)
         self.results_dir = Path(__file__).parent.parent / "results"
 
     def _load_config(self, config_path: str) -> dict:
         with open(config_path) as f:
             return yaml.safe_load(f)
-
-    def _get_api_key(self, model: str = None) -> str:
-        if model and model in self.config.get("models", {}):
-            api_key_env = self.config["models"][model].get("api_key_env", "BAILIAN_API_KEY")
-        else:
-            api_key_env = "BAILIAN_API_KEY"
-
-        key = os.getenv(api_key_env)
-        if key:
-            return key
-
-        # 从密钥文件加载
-        if api_key_env == "OPENROUTER_API_KEY":
-            key_file = Path.home() / ".secrets" / "openrouter_api_key.txt"
-            if key_file.exists():
-                return key_file.read_text().strip()
-
-        env_paths = [
-            Path.home() / "zhiwei-bot" / ".env",
-            Path(__file__).parent.parent.parent / "zhiwei-bot" / ".env",
-        ]
-        for env_path in env_paths:
-            if env_path.exists():
-                with open(env_path) as f:
-                    for line in f:
-                        line = line.strip()
-                        if line.startswith(f"{api_key_env}="):
-                            return line.split("=", 1)[1]
-        raise ValueError(f"未找到 {api_key_env}")
-
-    def call_api(self, model: str, prompt: str, max_tokens: int = 2048) -> Tuple[str, dict]:
-        """调用 API (支持百炼和 OpenRouter)"""
-        model_config = self.config["models"][model]
-        endpoint = model_config["endpoint"]
-        model_name = model_config["model"]
-
-        # 判断是 OpenRouter 还是百炼
-        if endpoint == "openrouter":
-            url = "https://openrouter.ai/api/v1/chat/completions"
-            api_key = self._get_api_key(model)
-        else:
-            url = f"https://{endpoint}/v1/chat/completions"
-            api_key = self._get_api_key(model)
-
-        system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
-
-        payload = {
-            "model": model_name,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            "temperature": 0.1,
-            "max_tokens": max_tokens
-        }
-
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
-
-        # OpenRouter 需要额外的 headers
-        if endpoint == "openrouter":
-            headers["HTTP-Referer"] = "https://github.com/terryhillliu-code/zhiwei-bench"
-            headers["X-Title"] = "Zhiwei Bench"
-
-        context = ssl.create_default_context()
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(payload).encode('utf-8'),
-            headers=headers,
-            method='POST'
-        )
-
-        start_time = time.time()
-        with urllib.request.urlopen(req, timeout=120, context=context) as resp:
-            data = json.loads(resp.read().decode())
-        elapsed_ms = (time.time() - start_time) * 1000
-
-        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-        usage = data.get("usage", {})
-
-        return content, {
-            "elapsed_ms": elapsed_ms,
-            "input_tokens": usage.get("prompt_tokens", 0),
-            "output_tokens": usage.get("completion_tokens", 0),
-            "total_tokens": usage.get("total_tokens", 0)
-        }
 
     def extract_json(self, text: str) -> Tuple[Optional[Any], Optional[str]]:
         """从文本中提取 JSON"""
@@ -543,7 +455,9 @@ class StructuredOutputEvaluator:
 
         for test in tqdm(JSON_FORMAT_TESTS, desc=f"JSON格式评测-{model}"):
             try:
-                response, meta = self.call_api(model, test["prompt"])
+                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                response, meta = self.api_client.call(model, test["prompt"],
+                                                       system_prompt=system_prompt)
                 parsed, error = self.extract_json(response)
 
                 if parsed is not None and test["validation"](parsed):
@@ -596,7 +510,9 @@ class StructuredOutputEvaluator:
         for test in tqdm(SCHEMA_ADHERENCE_TESTS, desc=f"Schema评测-{model}"):
             try:
                 prompt = test["prompt"].format(schema=json.dumps(test["schema"], indent=2, ensure_ascii=False))
-                response, meta = self.call_api(model, prompt, max_tokens=4096)
+                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                response, meta = self.api_client.call(model, prompt, max_tokens=4096,
+                                                       system_prompt=system_prompt)
                 parsed, error = self.extract_json(response)
 
                 if parsed is not None:
@@ -662,7 +578,9 @@ class StructuredOutputEvaluator:
 输出格式：
 {{"function": "函数名", "arguments": {{参数对象}}}}"""
 
-                response, meta = self.call_api(model, prompt)
+                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                response, meta = self.api_client.call(model, prompt,
+                                                       system_prompt=system_prompt)
                 parsed, error = self.extract_json(response)
 
                 if parsed is not None:
@@ -730,7 +648,9 @@ class StructuredOutputEvaluator:
 
         for test in tqdm(FORMAT_CONTROL_TESTS, desc=f"格式控制评测-{model}"):
             try:
-                response, meta = self.call_api(model, test["prompt"])
+                system_prompt = """你是一个精确的结构化输出专家。请严格按照用户要求的格式输出，不要添加额外解释。"""
+                response, meta = self.api_client.call(model, test["prompt"],
+                                                       system_prompt=system_prompt)
 
                 if test["validation"](response):
                     passed = True

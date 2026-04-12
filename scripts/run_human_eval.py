@@ -14,8 +14,6 @@ import sys
 import json
 import time
 import argparse
-import ssl
-import urllib.request
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass, asdict
@@ -28,6 +26,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 try:
     import yaml
     from tqdm import tqdm
+    from api_client import APIClient
 except ImportError:
     print("请安装依赖: pip install pyyaml tqdm")
     sys.exit(1)
@@ -54,7 +53,7 @@ class HumanEvalEvaluator:
     def __init__(self, config_path: str, model: str = None):
         self.config = self._load_config(config_path)
         self.current_model = model
-        self.api_key = self._get_api_key(model)
+        self.api_client = APIClient(config_path)
         self.results_dir = Path(__file__).parent.parent / "results"
         self.benchmarks_dir = Path(__file__).parent.parent / "benchmarks"
 
@@ -62,39 +61,6 @@ class HumanEvalEvaluator:
         """加载配置"""
         with open(config_path) as f:
             return yaml.safe_load(f)
-
-    def _get_api_key(self, model: str = None) -> str:
-        """获取 API Key"""
-        if model and model in self.config.get("models", {}):
-            api_key_env = self.config["models"][model].get("api_key_env", "BAILIAN_API_KEY")
-        else:
-            api_key_env = "BAILIAN_API_KEY"
-
-        # 优先从环境变量
-        key = os.getenv(api_key_env)
-        if key:
-            return key
-
-        # 从密钥文件加载
-        if api_key_env == "OPENROUTER_API_KEY":
-            key_file = Path.home() / ".secrets" / "openrouter_api_key.txt"
-            if key_file.exists():
-                return key_file.read_text().strip()
-
-        # 从 zhiwei-bot/.env 加载
-        env_paths = [
-            Path.home() / "zhiwei-bot" / ".env",
-            Path(__file__).parent.parent.parent / "zhiwei-bot" / ".env",
-        ]
-        for env_path in env_paths:
-            if env_path.exists():
-                with open(env_path) as f:
-                    for line in f:
-                        line = line.strip()
-                        if line.startswith(f"{api_key_env}="):
-                            return line.split("=", 1)[1]
-
-        raise ValueError(f"未找到 {api_key_env}")
 
     def load_problems(self, samples: int = None, seed: int = 42) -> List[dict]:
         """加载 HumanEval 问题"""
@@ -116,70 +82,6 @@ class HumanEvalEvaluator:
             problems = random.sample(problems, samples)
 
         return problems
-
-    def call_api(self, model: str, prompt: str, max_tokens: int = 4096) -> Tuple[str, dict]:
-        """调用 API (支持百炼和 OpenRouter)"""
-        model_config = self.config["models"][model]
-        endpoint = model_config["endpoint"]
-        model_name = model_config["model"]
-
-        # 判断是 OpenRouter 还是百炼
-        if endpoint == "openrouter":
-            url = "https://openrouter.ai/api/v1/chat/completions"
-            api_key = self._get_api_key(model)
-        else:
-            url = f"https://{endpoint}/v1/chat/completions"
-            api_key = self.api_key
-
-        system_prompt = """你是一个专业的 Python 程序员。请完成给定的函数，确保：
-1. 函数签名与要求完全一致
-2. 实现正确的逻辑
-3. 只输出代码，不要解释
-
-直接返回完整的函数实现，包括函数签名。"""
-
-        payload = {
-            "model": model_name,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            "temperature": 0.1,
-            "max_tokens": max_tokens
-        }
-
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
-
-        # OpenRouter 需要额外的 headers
-        if endpoint == "openrouter":
-            headers["HTTP-Referer"] = "https://github.com/terryhillliu-code/zhiwei-bench"
-            headers["X-Title"] = "Zhiwei Bench"
-
-        context = ssl.create_default_context()
-        req = urllib.request.Request(
-            url,
-            data=json.dumps(payload).encode('utf-8'),
-            headers=headers,
-            method='POST'
-        )
-
-        start_time = time.time()
-        with urllib.request.urlopen(req, timeout=180, context=context) as resp:
-            data = json.loads(resp.read().decode())
-        elapsed_ms = (time.time() - start_time) * 1000
-
-        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-        usage = data.get("usage", {})
-
-        return content, {
-            "elapsed_ms": elapsed_ms,
-            "input_tokens": usage.get("prompt_tokens", 0),
-            "output_tokens": usage.get("completion_tokens", 0),
-            "total_tokens": usage.get("total_tokens", 0)
-        }
 
     def extract_code(self, response: str) -> str:
         """从响应中提取代码"""
@@ -228,8 +130,15 @@ class HumanEvalEvaluator:
 3. 只输出函数代码，不要额外解释"""
 
         try:
-            # 调用 API
-            response, meta = self.call_api(model, full_prompt)
+            # 调用 API（使用统一客户端）
+            system_prompt = """你是一个专业的 Python 程序员。请完成给定的函数，确保：
+1. 函数签名与要求完全一致
+2. 实现正确的逻辑
+3. 只输出代码，不要解释
+
+直接返回完整的函数实现，包括函数签名。"""
+            response, meta = self.api_client.call(model, full_prompt, max_tokens=4096,
+                                                   system_prompt=system_prompt)
 
             # 提取代码
             code = self.extract_code(response)
