@@ -1,0 +1,26 @@
+[
+  {
+    "task_id": "HumanEval/163",
+    "model": "volc-doubao-lite",
+    "passed": true,
+    "elapsed_ms": 1066.9629573822021,
+    "input_tokens": 239,
+    "output_tokens": 75,
+    "total_tokens": 314,
+    "code": "def generate_integers(a, b):\n    lower = min(a, b)\n    upper = max(a, b)\n    result = []\n    for num in range(lower, upper + 1):\n        if 1 <= num <= 9 and num % 2 == 0:\n            result.append(num)\n    return result",
+    "error": null,
+    "timestamp": "2026-04-12T17:27:55.104523"
+  },
+  {
+    "task_id": "HumanEval/28",
+    "model": "volc-doubao-lite",
+    "passed": true,
+    "elapsed_ms": 1086.4572525024414,
+    "input_tokens": 190,
+    "output_tokens": 71,
+    "total_tokens": 261,
+    "code": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n    return ''.join(strings)",
+    "error": null,
+    "timestamp": "2026-04-12T17:27:56.197537"
+  }
+]

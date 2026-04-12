@@ -1,0 +1,93 @@
+{
+  "glm-4.7": {
+    "passed": 38,
+    "total": 40,
+    "rate": 95.0,
+    "avg_time_ms": 17119,
+    "total_tokens": 54905
+  },
+  "qwen3.6-plus": {
+    "passed": 46,
+    "total": 50,
+    "rate": 92.0,
+    "avg_time_ms": 47907,
+    "total_tokens": 131465
+  },
+  "volc-deepseek": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 7138,
+    "total_tokens": 19821
+  },
+  "glm-5": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 46458,
+    "total_tokens": 96383
+  },
+  "volc-glm": {
+    "passed": 49,
+    "total": 50,
+    "rate": 98.0,
+    "avg_time_ms": 57423,
+    "total_tokens": 94321
+  },
+  "volc-doubao-lite": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 1847,
+    "total_tokens": 18632
+  },
+  "volc-doubao-code": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 4895,
+    "total_tokens": 20406
+  },
+  "volc-doubao-pro": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 2741,
+    "total_tokens": 19893
+  },
+  "volc-kimi": {
+    "passed": 45,
+    "total": 50,
+    "rate": 90.0,
+    "avg_time_ms": 52066,
+    "total_tokens": 59110
+  },
+  "qwen3.5-plus": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 41341,
+    "total_tokens": 196871
+  },
+  "kimi-k2.5": {
+    "passed": 50,
+    "total": 50,
+    "rate": 100.0,
+    "avg_time_ms": 5889,
+    "total_tokens": 20449
+  },
+  "minimax-m2.5": {
+    "passed": 48,
+    "total": 50,
+    "rate": 96.0,
+    "avg_time_ms": 14459,
+    "total_tokens": 45623
+  },
+  "hunter-alpha": {
+    "passed": 49,
+    "total": 50,
+    "rate": 98.0,
+    "avg_time_ms": 20708,
+    "total_tokens": 65718
+  }
+}

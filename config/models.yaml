@@ -2,11 +2,18 @@
 # 所有模型通过百炼 API 调用
 
 models:
+  # === 百炼 Coding Plan ===
   qwen3.5-plus:
     endpoint: "coding.dashscope.aliyuncs.com"
     model: "qwen3.5-plus"
     api_key_env: "BAILIAN_API_KEY"
     description: "通义千问 3.5 Plus"
+
+  qwen3.6-plus:
+    endpoint: "coding.dashscope.aliyuncs.com"
+    model: "qwen3.6-plus"
+    api_key_env: "BAILIAN_API_KEY"
+    description: "通义千问 3.6 Plus (新)"
 
   glm-5:
     endpoint: "coding.dashscope.aliyuncs.com"
@@ -20,12 +27,6 @@ models:
     api_key_env: "BAILIAN_API_KEY"
     description: "MiniMax M2.5"
 
-  hunter-alpha:
-    endpoint: "openrouter"
-    model: "openrouter/hunter-alpha"
-    api_key_env: "OPENROUTER_API_KEY"
-    description: "Hunter Alpha (1T params, 1M context)"
-
   kimi-k2.5:
     endpoint: "coding.dashscope.aliyuncs.com"
     model: "kimi-k2.5"
@@ -37,6 +38,50 @@ models:
     model: "glm-4.7"
     api_key_env: "BAILIAN_API_KEY"
     description: "智谱 GLM-4.7"
+
+  # === OpenRouter ===
+  hunter-alpha:
+    endpoint: "openrouter"
+    model: "openrouter/hunter-alpha"
+    api_key_env: "OPENROUTER_API_KEY"
+    description: "Hunter Alpha (1T params, 1M context)"
+
+  # === 火山引擎 Coding Plan ===
+  volc-doubao-code:
+    endpoint: "volcengine"
+    model: "doubao-seed-2.0-code"
+    api_key_env: "VOLCENGINE_API_KEY"
+    description: "火山 Doubao Seed 2.0 Code (编程专精)"
+
+  volc-doubao-pro:
+    endpoint: "volcengine"
+    model: "doubao-seed-2.0-pro"
+    api_key_env: "VOLCENGINE_API_KEY"
+    description: "火山 Doubao Seed 2.0 Pro (旗舰)"
+
+  volc-doubao-lite:
+    endpoint: "volcengine"
+    model: "doubao-seed-2.0-lite"
+    api_key_env: "VOLCENGINE_API_KEY"
+    description: "火山 Doubao Seed 2.0 Lite (快速)"
+
+  volc-deepseek:
+    endpoint: "volcengine"
+    model: "deepseek-v3.2"
+    api_key_env: "VOLCENGINE_API_KEY"
+    description: "火山 DeepSeek V3.2"
+
+  volc-kimi:
+    endpoint: "volcengine"
+    model: "kimi-k2.5"
+    api_key_env: "VOLCENGINE_API_KEY"
+    description: "火山 Kimi K2.5"
+
+  volc-glm:
+    endpoint: "volcengine"
+    model: "glm-4.7"
+    api_key_env: "VOLCENGINE_API_KEY"
+    description: "火山 GLM-4.7"
 
 defaults:
   temperature: 0.1

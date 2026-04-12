@@ -1,0 +1,26 @@
+[
+  {
+    "scenario_id": "multi_file_bug",
+    "model": "volc-kimi",
+    "error": "The read operation timed out",
+    "timestamp": "2026-04-12T17:04:52.577257"
+  },
+  {
+    "scenario_id": "new_feature",
+    "model": "volc-kimi",
+    "error": "The read operation timed out",
+    "timestamp": "2026-04-12T17:07:52.640389"
+  },
+  {
+    "scenario_id": "code_refactor",
+    "model": "volc-kimi",
+    "error": "The read operation timed out",
+    "timestamp": "2026-04-12T17:10:52.704312"
+  },
+  {
+    "scenario_id": "error_handling",
+    "model": "volc-kimi",
+    "error": "The read operation timed out",
+    "timestamp": "2026-04-12T17:13:52.758555"
+  }
+]

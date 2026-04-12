@@ -1,0 +1,420 @@
+[
+  {
+    "task_id": "json_simple",
+    "category": "json_format",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2114.4378185272217,
+    "input_tokens": 59,
+    "output_tokens": 38,
+    "total_tokens": 97,
+    "output": "```json\n{\n  \"name\": \"张三\",\n  \"age\": 28,\n  \"email\": \"zhangsan@example.com\"\n}\n```",
+    "parsed_result": {
+      "name": "张三",
+      "age": 28,
+      "email": "zhangsan@example.com"
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:05.957004"
+  },
+  {
+    "task_id": "json_nested",
+    "category": "json_format",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 1557.0759773254395,
+    "input_tokens": 59,
+    "output_tokens": 58,
+    "total_tokens": 117,
+    "output": "```json\n{\n  \"name\": \"张三\",\n  \"address\": {\n    \"city\": \"北京市\",\n    \"street\": \"中关村大街1号\",\n    \"zipcode\": \"100000\"\n  }\n}\n```",
+    "parsed_result": {
+      "name": "张三",
+      "address": {
+        "city": "北京市",
+        "street": "中关村大街1号",
+        "zipcode": "100000"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:07.520306"
+  },
+  {
+    "task_id": "json_array",
+    "category": "json_format",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3096.120834350586,
+    "input_tokens": 58,
+    "output_tokens": 74,
+    "total_tokens": 132,
+    "output": "```json\n[\n  {\n    \"id\": 1,\n    \"name\": \"张三\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"李四\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"王五\"\n  }\n]\n```",
+    "parsed_result": [
+      {
+        "id": 1,
+        "name": "张三"
+      },
+      {
+        "id": 2,
+        "name": "李四"
+      },
+      {
+        "id": 3,
+        "name": "王五"
+      }
+    ],
+    "error": null,
+    "timestamp": "2026-04-12T14:49:10.622318"
+  },
+  {
+    "task_id": "json_special_chars",
+    "category": "json_format",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4184.482097625732,
+    "input_tokens": 56,
+    "output_tokens": 26,
+    "total_tokens": 82,
+    "output": "```json\n{\n  \"message\": \"He said \\\"Hello\\\" and left\\nNew line here.\"\n}\n```",
+    "parsed_result": {
+      "message": "He said \"Hello\" and left\nNew line here."
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:14.813160"
+  },
+  {
+    "task_id": "json_numbers",
+    "category": "json_format",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 5926.936149597168,
+    "input_tokens": 61,
+    "output_tokens": 47,
+    "total_tokens": 108,
+    "output": "{\n  \"integer\": 42,\n  \"float\": 3.14,\n  \"negative\": -15,\n  \"scientific\": 6.022e23\n}",
+    "parsed_result": {
+      "integer": 42,
+      "float": 3.14,
+      "negative": -15,
+      "scientific": 6.022e+23
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:20.745905"
+  },
+  {
+    "task_id": "schema_required",
+    "category": "schema_adherence",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2363.555669784546,
+    "input_tokens": 139,
+    "output_tokens": 10,
+    "total_tokens": 149,
+    "output": "{\"id\":1,\"name\":\"示例名称\"}",
+    "parsed_result": {
+      "id": 1,
+      "name": "示例名称"
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:23.120909"
+  },
+  {
+    "task_id": "schema_types",
+    "category": "schema_adherence",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4207.078218460083,
+    "input_tokens": 188,
+    "output_tokens": 36,
+    "total_tokens": 224,
+    "output": "{\"string_field\": \"hello world\", \"number_field\": 42, \"boolean_field\": true, \"array_field\": [\"a\", \"b\", \"c\"]}",
+    "parsed_result": {
+      "string_field": "hello world",
+      "number_field": 42,
+      "boolean_field": true,
+      "array_field": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:27.333880"
+  },
+  {
+    "task_id": "schema_enum",
+    "category": "schema_adherence",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 840.6918048858643,
+    "input_tokens": 177,
+    "output_tokens": 9,
+    "total_tokens": 186,
+    "output": "{\"status\":\"active\",\"priority\":1}",
+    "parsed_result": {
+      "status": "active",
+      "priority": 1
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:28.180966"
+  },
+  {
+    "task_id": "schema_nested",
+    "category": "schema_adherence",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2521.1241245269775,
+    "input_tokens": 238,
+    "output_tokens": 44,
+    "total_tokens": 282,
+    "output": "{\"user\":{\"name\":\"张三\",\"contacts\":[{\"type\":\"email\",\"value\":\"zhangsan@example.com\"},{\"type\":\"phone\",\"value\":\"13800138000\"}]}}",
+    "parsed_result": {
+      "user": {
+        "name": "张三",
+        "contacts": [
+          {
+            "type": "email",
+            "value": "zhangsan@example.com"
+          },
+          {
+            "type": "phone",
+            "value": "13800138000"
+          }
+        ]
+      }
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:30.708423"
+  },
+  {
+    "task_id": "schema_array_constraints",
+    "category": "schema_adherence",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2380.986213684082,
+    "input_tokens": 178,
+    "output_tokens": 24,
+    "total_tokens": 202,
+    "output": "{\"tags\":[\"音乐\",\"阅读\",\"科技\"],\"scores\":[85,92,78,90]}",
+    "parsed_result": {
+      "tags": [
+        "音乐",
+        "阅读",
+        "科技"
+      ],
+      "scores": [
+        85,
+        92,
+        78,
+        90
+      ]
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:33.095194"
+  },
+  {
+    "task_id": "func_simple",
+    "category": "function_calling",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4211.741209030151,
+    "input_tokens": 199,
+    "output_tokens": 17,
+    "total_tokens": 216,
+    "output": "{\"function\": \"get_weather\", \"arguments\": {\"city\": \"北京\"}}",
+    "parsed_result": {
+      "function": "get_weather",
+      "arguments": {
+        "city": "北京"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:37.313262"
+  },
+  {
+    "task_id": "func_multiple_params",
+    "category": "function_calling",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 2464.2531871795654,
+    "input_tokens": 294,
+    "output_tokens": 43,
+    "total_tokens": 337,
+    "output": "{\"function\": \"search_products\", \"arguments\": {\"keyword\": \"手机配件\", \"min_price\": 100, \"max_price\": 500, \"sort_by\": \"sales\"}}",
+    "parsed_result": {
+      "function": "search_products",
+      "arguments": {
+        "keyword": "手机配件",
+        "min_price": 100,
+        "max_price": 500,
+        "sort_by": "sales"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:39.783359"
+  },
+  {
+    "task_id": "func_nested_params",
+    "category": "function_calling",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3842.072010040283,
+    "input_tokens": 353,
+    "output_tokens": 76,
+    "total_tokens": 429,
+    "output": "{\"function\": \"create_order\", \"arguments\": {\"customer\": {\"name\": \"张三\", \"phone\": \"13800138000\", \"address\": \"北京市朝阳区xxx\"}, \"items\": [{\"product_id\": \"商品A\", \"quantity\": 2}, {\"product_id\": \"商品B\", \"quantity\": 1}]}}",
+    "parsed_result": {
+      "function": "create_order",
+      "arguments": {
+        "customer": {
+          "name": "张三",
+          "phone": "13800138000",
+          "address": "北京市朝阳区xxx"
+        },
+        "items": [
+          {
+            "product_id": "商品A",
+            "quantity": 2
+          },
+          {
+            "product_id": "商品B",
+            "quantity": 1
+          }
+        ]
+      }
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:43.631613"
+  },
+  {
+    "task_id": "func_array_param",
+    "category": "function_calling",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 5812.914848327637,
+    "input_tokens": 259,
+    "output_tokens": 37,
+    "total_tokens": 296,
+    "output": "{\"function\": \"send_notification\", \"arguments\": {\"recipients\": [\"张三\", \"李四\", \"王五\"], \"message\": \"明天开会\", \"priority\": \"high\"}}",
+    "parsed_result": {
+      "function": "send_notification",
+      "arguments": {
+        "recipients": [
+          "张三",
+          "李四",
+          "王五"
+        ],
+        "message": "明天开会",
+        "priority": "high"
+      }
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:49.450712"
+  },
+  {
+    "task_id": "func_no_params",
+    "category": "function_calling",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3256.247043609619,
+    "input_tokens": 107,
+    "output_tokens": 13,
+    "total_tokens": 120,
+    "output": "{\"function\": \"get_current_time\", \"arguments\": {}}",
+    "parsed_result": {
+      "function": "get_current_time",
+      "arguments": {}
+    },
+    "error": null,
+    "timestamp": "2026-04-12T14:49:52.713069"
+  },
+  {
+    "task_id": "markdown_table",
+    "category": "format_control",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 3894.14381980896,
+    "input_tokens": 51,
+    "output_tokens": 96,
+    "total_tokens": 147,
+    "output": "| 编程语言 | 创建年份 | 主要用途 |\n| :--- | :--- | :--- |\n| **Python** | 1991 | 数据分析、人工智能、Web开发、自动化脚本 |\n| **JavaScript** | 1995 | 前端网页交互、后端开发 (Node.js)、移动应用 |\n| **C** | 1972 | 系统编程、嵌入式开发、操作系统、编译器设计 |",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-04-12T14:49:56.613340"
+  },
+  {
+    "task_id": "markdown_code_block",
+    "category": "format_control",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 10280.308961868286,
+    "input_tokens": 46,
+    "output_tokens": 571,
+    "total_tokens": 617,
+    "output": "这里提供一个时间复杂度为 $O(n)$，空间复杂度为 $O(1)$ 的最实用的迭代解法，同时也附上了递归解法供参考。\n\n```python\ndef fibonacci(n):\n    \"\"\"\n    计算斐波那契数列的第 n 个数。\n    \n    约定:\n    F(0) = 0\n    F(1) = 1\n    F(n) = F(n-1) + F(n-2) (n >= 2)\n    \n    参数:\n    n (int): 非负整数索引\n    \n    返回:\n    int: 斐波那契数列第 n 项的值\n    \"\"\"\n    if not isinstance(n, int) or n < 0:\n        raise ValueError(\"n 必须是非负整数\")\n        \n    # 基础情况\n    if n == 0:\n        return 0\n    if n == 1:\n        return 1\n    \n    # 迭代计算 (使用滚动变量，空间复杂度 O(1))\n    prev_prev = 0  # F(0)\n    pre",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-04-12T14:50:06.901694"
+  },
+  {
+    "task_id": "markdown_list",
+    "category": "format_control",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4408.550977706909,
+    "input_tokens": 46,
+    "output_tokens": 162,
+    "total_tokens": 208,
+    "output": "-   **写清晰可读的代码**：使用有意义的变量和函数命名，代码是写给人看的，顺便给机器执行。\n-   **坚持复用原则（DRY）**：不要重复自己，将重复的逻辑抽取成函数或模块，方便维护和修改。\n-   **添加必要的注释**：代码复杂逻辑或“为什么这样做”的地方补充注释，但避免为显而易见的代码写废话注释。\n-   **编写自动化测试**：为核心功能编写单元测试，这能在你修改代码后快速发现是否引入了新的 Bug。\n-   **持续小步提交（版本控制）**：使用 Git 等工具，频繁且有逻辑地提交代码，方便回溯和团队协作。",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-04-12T14:50:11.317200"
+  },
+  {
+    "task_id": "markdown_heading",
+    "category": "format_control",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 11814.141750335693,
+    "input_tokens": 48,
+    "output_tokens": 810,
+    "total_tokens": 858,
+    "output": "# 人工智能：改变未来的颠覆性技术\n\n## 一、什么是人工智能？\n\n### 1.1 定义与核心概念\n人工智能（Artificial Intelligence，简称AI）是计算机科学的一个分支，旨在创造能够执行通常需要人类智能才能完成的任务的系统。这些任务包括视觉感知、语音识别、决策制定和语言翻译等。简而言之，AI的目标是让机器拥有类似人类的思考、推理和学习能力。\n\n### 1.2 发展简史\nAI的概念并非现代才有。早在上世纪50年代，“人工智能”这一术语在达特茅斯会议上被正式提出，标志着AI作为一门独立学科的诞生。此后，AI经历了几次起伏，包括由于技术瓶颈和资金缩减而导致的“AI寒冬”。直到21世纪，随着大数据、计算能力（特别是GPU）的提升以及深度学习算法的突破，AI才迎来了爆发式增长。\n\n---\n\n## 二、人工智能的关键技术\n\n### 2.1 机器学习\n机器学习（Machine Learning）是AI的核心子集。它使计算机能够在没有明确编程的情况下从数据中学习。其工作原理是通过算法分析大量数据，识别模式，并据此做出预测或决策。例如，电商网站的推荐系统就是通过分析用户的购买和浏览",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-04-12T14:50:23.137212"
+  },
+  {
+    "task_id": "mixed_format",
+    "category": "format_control",
+    "model": "volc-doubao-code",
+    "passed": true,
+    "score": 1.0,
+    "elapsed_ms": 4537.250757217407,
+    "input_tokens": 62,
+    "output_tokens": 217,
+    "total_tokens": 279,
+    "output": "## Git 基础配置与初始化\n\n在开始使用 Git 进行版本控制前，我们通常需要设置用户信息并初始化仓库。以下是本地常用的身份配置项：\n\n| 配置项           | 作用说明                     | 配置示例值           |\n| :--------------- | :--------------------------- | :------------------- |\n| `user.name`      | 设置提交代码时的用户名       | Zhang San            |\n| `user.email`     | 设置提交代码时的联系邮箱     | zhangsan@example.com |\n\n配置完成后，可以在终端通过以下命令初始化一个新的仓库：\n\n```bash\n# 1. 设置全局用户名和邮箱\ngit config --global user.name \"Zhang San\"\ngit config --global user.email \"zhangsan@example.com\"\n\n# 2. 创建并进入项目文件",
+    "parsed_result": null,
+    "error": null,
+    "timestamp": "2026-04-12T14:50:27.683783"
+  }
+]

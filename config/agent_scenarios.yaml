@@ -1,0 +1,168 @@
+# Agent 场景测试配置
+# 用于评估 LLM 的 Agent 编程能力
+
+scenarios:
+  # 场景 1: 多文件 Bug 修复
+  multi_file_bug:
+    name: "多文件 Bug 修复"
+    description: "修复一个涉及多个文件的 Bug，测试项目理解和定位能力"
+    difficulty: "medium"
+
+    task_prompt: |
+      项目：zhiwei-bot
+      任务：WebSocket 连接失败时缺少重试机制
+
+      要求：
+      1. 分析 ws_client.py 的连接逻辑
+      2. 找到 llm_client.py 中已有的重试函数
+      3. 在适当位置添加重试机制
+      4. 确保修改不影响其他功能
+
+    evaluation:
+      project_understanding:
+        weight: 30
+        criteria:
+          - 是否找到 ws_client.py (10分)
+          - 是否找到 llm_client.py (10分)
+          - 是否理解重试函数用途 (10分)
+
+      code_quality:
+        weight: 30
+        criteria:
+          - 代码是否正确 (15分)
+          - 是否不影响其他功能 (15分)
+
+      result:
+        weight: 40
+        criteria:
+          - 重试机制是否正确实现 (20分)
+          - 代码语法是否正确 (10分)
+          - 是否完整修改所有需要的地方 (10分)
+
+  # 场景 2: 新功能实现
+  new_feature:
+    name: "新功能实现"
+    description: "实现一个新功能，测试任务分解和执行能力"
+    difficulty: "medium"
+
+    task_prompt: |
+      项目：zhiwei-bench
+      任务：创建 MBPP 测试脚本
+
+      要求：
+      1. 分析 run_human_eval.py 的结构作为参考
+      2. 创建 run_mbpp.py 脚本
+      3. 适配 MBPP 数据格式
+      4. 测试一个模型验证脚本正确性
+
+    evaluation:
+      task_decomposition:
+        weight: 25
+        criteria:
+          - 是否正确分析 HumanEval 脚本结构 (10分)
+          - 是否提出合理的实现步骤 (15分)
+
+      implementation:
+        weight: 35
+        criteria:
+          - 脚本结构是否正确 (15分)
+          - 是否正确适配 MBPP 格式 (10分)
+          - 是否包含错误处理 (10分)
+
+      verification:
+        weight: 40
+        criteria:
+          - 是否主动测试脚本 (20分)
+          - 脚本是否能正确运行 (20分)
+
+  # 场景 3: 代码重构
+  code_refactor:
+    name: "代码重构"
+    description: "重构代码结构，测试理解和改进能力"
+    difficulty: "medium"
+
+    task_prompt: |
+      项目：zhiwei-bench
+      任务：重构 run_structured_output.py
+
+      要求：
+      1. 分析当前代码结构
+      2. 提出重构方案（提高可读性、减少重复）
+      3. 实施重构
+      4. 确保功能不变
+
+    evaluation:
+      understanding:
+        weight: 25
+        criteria:
+          - 是否理解当前代码结构 (15分)
+          - 是否找出可改进点 (10分)
+
+      planning:
+        weight: 25
+        criteria:
+          - 重构方案是否合理 (15分)
+          - 是否考虑风险 (10分)
+
+      execution:
+        weight: 50
+        criteria:
+          - 重构后代码是否更清晰 (20分)
+          - 功能是否保持不变 (20分)
+          - 是否无语法错误 (10分)
+
+  # 场景 4: 错误处理
+  error_handling:
+    name: "错误处理"
+    description: "处理 API 调用错误，测试错误恢复能力"
+    difficulty: "easy"
+
+    task_prompt: |
+      场景：API 调用返回错误
+
+      错误信息：
+      ```
+      {"error": {"code": "rate_limit_exceeded", "message": "Too many requests"}}
+      ```
+
+      要求：
+      1. 分析错误原因
+      2. 提出处理方案
+      3. 修改代码添加错误处理
+      4. 确保不会重复触发错误
+
+    evaluation:
+      error_analysis:
+        weight: 30
+        criteria:
+          - 是否正确识别错误类型 (15分)
+          - 是否理解错误原因 (15分)
+
+      solution:
+        weight: 40
+        criteria:
+          - 处理方案是否合理 (20分)
+          - 是否添加适当的等待/重试 (20分)
+
+      implementation:
+        weight: 30
+        criteria:
+          - 代码是否正确实现 (15分)
+          - 是否考虑边界情况 (15分)
+
+# 评测模型
+models:
+  - id: "volc-doubao-pro"
+    name: "Doubao Seed 2.0 Pro"
+    provider: "volcengine"
+
+  - id: "qwen3.6-plus"
+    name: "Qwen 3.6 Plus"
+    provider: "bailian"
+
+# 评分汇总
+weights:
+  project_understanding: 0.25
+  task_decomposition: 0.25
+  code_quality: 0.25
+  final_result: 0.25
